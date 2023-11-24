@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="form-style.css">
+    <!-- <script src="form-script.js"></script>` -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <a href="form.html" class="ui-btn"><span>Catalysts</span></a>
+    </div>
+
+    <div class="left-panel">
+        <div class="line"></div>
+        <span>RATE OUR SERVICES</span>
+        <h3>Fill the form to submit your feedback</h3>
+        <p>We value your feedback!</p>
+        <p>Please take a moment to share your thoughts with us. Your input helps us improve and provide a better experience for all our users.</p>
+    </div>
+
+
+    <div class="right-panel">
+        <form id="myForm" class="myForm">
+            <div class="row">
+                <div class="inputbox">
+                    <input required="required" type="text" id="name" name="name">
+                    <span>Name</span>
+                    <i></i>
+                    <!-- <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required> -->
+                </div>
+                
+                <div class="inputbox">
+                    <input required="required" type="text" id="age" name="age">
+                    <span>Age</span>
+                    <i></i>
+                    <!-- <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required> -->
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="inputbox">
+                    <input required="required" type="text" id="state" name="state">
+                    <span>State</span>
+                    <i></i>
+                </div>
+                
+                <div class="inputbox">
+                    <input required="required" type="text" id="college" name="college">
+                    <span>College</span>
+                    <i></i>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="inputbox">
+                    <input required="required" type="email" id="email" name="email">
+                    <span>Email</span>
+                    <i></i>
+                </div>
+        
+                <div class="inputbox">
+                    <input required="required" type="tel" pattern="[0-9]{10}" id="phone" name="phone">
+                    <span>Phone Number</span>
+                    <i></i>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="audio-input">
+                    <p class="desc">Was the course's objective and purpose clear?</p>
+                    <div class="upload-area">
+                        <label for="audio1" class="footer">
+                            <p>Upload audio</p>
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" id="audio1" name="audio1" accept="audio/*">
+                    </div>
+                </div>
+    
+                <div class="audio-input">
+                    <p class="desc">Did the course improve your skills and knowledge?</p>
+                    <div class="upload-area">
+                        <label for="audio2" class="footer">
+                            <p>Upload audio</p>
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" id="audio2" name="audio2" accept="audio/*">
+                    </div>
+                </div>
+    
+                <div class="audio-input">
+                    <p class="desc">How was the workload of the course?</p>
+                    <div class="upload-area">
+                        <label for="audio3" class="footer">
+                            <p>Upload audio</p>
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" id="audio3" name="audio3" accept="audio/*">
+                    </div>
+                </div>
+    
+                <div class="audio-input">
+                    <p class="desc">Did the faculty teach well?</p>
+                    <div class="upload-area">
+                        <label for="audio4" class="footer">
+                            <p>Upload audio</p>
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" id="audio4" name="audio4" accept="audio/*">
+                    </div>
+                </div>
+            </div>
+    
+            <button type="submit">
+                <div class="svg-wrapper-1">
+                  <div class="svg-wrapper">
+                    <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" fill="currentColor"></path>
+                    </svg>
+                  </div>
+                </div>
+                <span>Submit</span>
+                <!-- Submit -->
+              </button>
+        </form>
+    </div>
+
+    <script>
+
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            // alert("Audio added");
+            event.preventDefault(); // Prevent form submission from reloading the page
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Capture the audio files and append them to the FormData
+            // const audioFiles = document.querySelectorAll('input[type="file"]');
+            // audioFiles.forEach(fileInput => {
+            //     const file = fileInput.files[0];
+            //     formData.append(fileInput.name, file);
+            // });
+            
+
+            // Make an HTTP POST request to the Flask backend
+            fetch('/submit-data', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(responseText => {
+                console.log(responseText); // Log the response from Flask (optional)
+                // Add any additional logic or UI updates as needed after the response
+            })
+            
+            .catch(error => {
+                console.error('Error sending data to Flask:', error);
+                // Handle any error that occurs during the request
+            });
+            alert("Audio added");
+        });
+    </script>
+
+</body>
+</html>
